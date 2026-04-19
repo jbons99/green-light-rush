@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Green Light Rush V12</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <div class="machine-frame">
+      <header class="machine-header">
+        <div class="brand-block">
+          <h1>Green Light Rush</h1>
+          <p>Premium traffic slot prototype</p>
+        </div>
+
+        <div class="header-right">
+          <div class="jackpot-strip">
+            <div class="jackpot mini"><span class="jackpot-label">MINI</span><span class="jackpot-value">50</span></div>
+            <div class="jackpot minor"><span class="jackpot-label">MINOR</span><span class="jackpot-value">150</span></div>
+            <div class="jackpot major"><span class="jackpot-label">MAJOR</span><span class="jackpot-value">500</span></div>
+            <div class="jackpot grand"><span class="jackpot-label">GRAND</span><span class="jackpot-value">2500</span></div>
+          </div>
+
+          <div class="header-status">
+            <div class="status-chip" id="modeLabel">Base Game</div>
+            <div class="status-chip" id="freeSpinsLabel">Free Spins: 0</div>
+          </div>
+        </div>
+      </header>
+
+      <section class="top-feature-row">
+        <div class="traffic-meter-card">
+          <div class="meter-title">Traffic Meter</div>
+          <div class="traffic-meter-visual">
+            <div class="traffic-bulb red active" id="lightRed"></div>
+            <div class="traffic-bulb amber" id="lightAmber"></div>
+            <div class="traffic-bulb green" id="lightGreen"></div>
+          </div>
+          <div class="meter-subtext" id="trafficMeterText">RED LIGHT</div>
+        </div>
+        <section id="pickBonusPanel" class="pick-bonus-panel hidden">
+  <div class="pick-bonus-header">
+    <div class="pick-bonus-title">CONTROL THE LIGHTS BONUS</div>
+    <div class="pick-bonus-subtitle" id="pickBonusSubtitle">Pick signals to reveal prizes</div>
+  </div>
+
+  <div class="pick-bonus-stats">
+    <div class="pick-bonus-stat">MINI: <span id="miniCount">0</span></div>
+    <div class="pick-bonus-stat">MINOR: <span id="minorCount">0</span></div>
+    <div class="pick-bonus-stat">MAJOR: <span id="majorCount">0</span></div>
+    <div class="pick-bonus-stat">GRAND: <span id="grandCount">0</span></div>
+  </div>
+
+  <div id="pickBonusGrid" class="pick-bonus-grid"></div>
+</section>
+
+        <div class="feature-banner" id="featureBanner">
+          Build traffic lights to unlock <strong>GREEN LIGHT FEATURE</strong>
+        </div>
+
+        <div class="quick-buttons">
+          <button id="paytableButton" class="btn btn-dark">PAYTABLE</button>
+          <button id="autoButton" class="btn btn-dark">AUTO</button>
+          <button id="soundButton" class="btn btn-dark">SOUND ON</button>
+        </div>
+      </section>
+
+      <section class="screen-section">
+        <div class="reel-screen" id="reelScreen">
+          <canvas id="paylineCanvas"></canvas>
+          <div id="reels" class="reels"></div>
+
+          <div id="bigWinOverlay" class="overlay hidden">
+            <div class="overlay-card big-win-card">
+              <div class="overlay-title">BIG WIN</div>
+              <div class="overlay-value" id="bigWinValue">0</div>
+            </div>
+          </div>
+
+          <div id="featureOverlay" class="overlay hidden">
+            <div class="overlay-card feature-card">
+              <div class="overlay-title" id="featureOverlayTitle">GREEN LIGHT</div>
+              <div class="overlay-subtitle" id="featureOverlaySubtitle">Traffic cleared. Bonus awarded.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="meter-row">
+        <div class="meter-box">
+          <span class="meter-label">Credits</span>
+          <span class="meter-value" id="credits">1000</span>
+        </div>
+        <div class="meter-box">
+          <span class="meter-label">Lines</span>
+          <span class="meter-value" id="linesValue">20</span>
+        </div>
+        <div class="meter-box">
+          <span class="meter-label">Bet Mult</span>
+          <span class="meter-value" id="betMultValue">1x</span>
+        </div>
+        <div class="meter-box">
+          <span class="meter-label">Total Bet</span>
+          <span class="meter-value" id="totalBet">20</span>
+        </div>
+        <div class="meter-box win-box">
+          <span class="meter-label">Win</span>
+          <span class="meter-value" id="win">0</span>
+        </div>
+      </section>
+
+      <section class="control-strip">
+        <div class="selectors">
+          <div class="selector">
+            <label for="linesSelect">Lines</label>
+            <select id="linesSelect">
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+              <option value="20" selected>20</option>
+            </select>
+          </div>
+
+          <div class="selector">
+            <label for="betMultSelect">Bet Multiplier</label>
+            <select id="betMultSelect">
+              <option value="1" selected>1x</option>
+              <option value="2">2x</option>
+              <option value="3">3x</option>
+              <option value="5">5x</option>
+              <option value="10">10x</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="action-buttons">
+          <button id="spinButton" class="btn btn-spin">SPIN</button>
+        </div>
+      </section>
+
+      <section class="gamble-panel">
+        <div class="gamble-left">
+          <div class="gamble-title">Gamble Feature</div>
+          <div class="gamble-subtitle">Double on red/black or 4x on a suit</div>
+        </div>
+
+        <div class="gamble-actions">
+          <button class="btn gamble-btn red" data-gamble="RED">RED x2</button>
+          <button class="btn gamble-btn black" data-gamble="BLACK">BLACK x2</button>
+          <button class="btn gamble-btn suit" data-gamble="HEARTS">♥ x4</button>
+          <button class="btn gamble-btn suit" data-gamble="DIAMONDS">♦ x4</button>
+          <button class="btn gamble-btn suit" data-gamble="CLUBS">♣ x4</button>
+          <button class="btn gamble-btn suit" data-gamble="SPADES">♠ x4</button>
+          <button id="collectButton" class="btn btn-collect">COLLECT</button>
+        </div>
+      </section>
+
+      <section class="message-strip">
+        <div id="message" class="message-text">Ready to spin.</div>
+      </section>
+    </div>
+  </div>
+
+  <div id="paytableModal" class="modal hidden">
+    <div class="modal-backdrop" id="closePaytableBackdrop"></div>
+    <div class="modal-panel">
+      <div class="modal-header">
+        <h2>Paytable</h2>
+        <button id="closePaytableButton" class="btn btn-dark small-btn">CLOSE</button>
+      </div>
+
+      <div class="paytable-grid" id="paytableGrid"></div>
+
+      <div class="rules-box">
+        <p><strong>Traffic Meter:</strong> 3 or more TRAFFIC symbols advances RED → AMBER → GREEN.</p>
+        <p><strong>Green Light Feature:</strong> Triggering TRAFFIC symbols while GREEN awards 5 free spins at 2x multiplier.</p>
+        <p><strong>Gamble:</strong> Works only on the latest base-game win.</p>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
